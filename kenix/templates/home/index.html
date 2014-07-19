@@ -1,10 +1,189 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head lang="en">
+<head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Kenix | Home</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 </head>
+
 <body>
-home
+
+<!--header-->
+<div class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <a herf="#">
+                    <img src="./images/logo.png" alt="logo" class="logo"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//header-->
+
+<!--headerNav-->
+<div class="headerNav">
+    <div class="container">
+        <div class="row headerNavBox">
+            <a href="#">
+                <div class="col-xs-6 col-sm-3 headerNavBtn">
+                    Home
+                </div>
+            </a>
+            <a href="#">
+                <div class="col-xs-6 col-sm-3 headerNavBtn">
+                    Services
+                </div>
+            </a>
+            <a href="#">
+                <div class="col-xs-6 col-sm-3 headerNavBtn">
+                    Support
+                </div>
+            </a>
+            <a href="#">
+                <div class="col-xs-6 col-sm-3 headerNavBtn">
+                    About
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<!--//headerNav-->
+
+<!--mainVisual-->
+<div class="mainVisual_wrapper section">
+    <div class="container">
+        <img src="./images/mainVisual.jpg" alt="" class="img-responsive mainVisual"/>
+    </div>
+</div>
+<!--//mainVisual-->
+
+<!--section-->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="col_box clearfix">
+                    <div class="col-xs-6 col-sm-12">
+                        <img src="./images/coffee.jpg" alt="" class="img-responsive" style="width:100%;"/>
+                    </div>
+                    <div class="col-xs-6 col-sm-12">
+User Experience
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="col_box clearfix">
+                    <div class="col-xs-6 col-sm-12">
+                        <img src="./images/coffee.jpg" alt="" class="img-responsive" style="width:100%;"/>
+                    </div>
+                    <div class="col-xs-6 col-sm-12">
+Solid Architecture
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="col_box clearfix">
+                    <div class="col-xs-6 col-sm-12">
+                        <img src="./images/coffee.jpg" alt="" class="img-responsive" style="width:100%;"/>
+                    </div>
+                    <div class="col-xs-6 col-sm-12">
+Scale Out
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="col_box clearfix">
+                    <div class="col-xs-6 col-sm-12">
+                        <img src="./images/coffee.jpg" alt="" class="img-responsive" style="width:100%;"/>
+                    </div>
+                    <div class="col-xs-6 col-sm-12">
+Security
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//section-->
+
+<!--footer-->
+<div class="footer">
+    <div class="container">
+		<span class="copyright">
+			&copy; Copyright <a href="" target="_blank">Kenix</a> All Rights Reserved.
+		</span>
+    </div>
+</div>
+<!--//footer-->
+
+<style>
+
+    .container {
+
+    }
+
+    .header {
+        border-top: 3px solid #000;
+    }
+
+    .logo {
+        margin: 0.5em auto;
+        display: block;
+    }
+
+    .headerNavBtn {
+        text-align: center;
+        height: 3em;
+        line-height: 3em;
+        color: #5F5F5F;
+        font-size: 16px;
+    }
+
+    .headerNavBtn:hover {
+        background: #EEE;
+    }
+
+    .section {
+        background: #232829;
+        background: -moz-linear-gradient(50% 0% -90deg, #000 0%, #232829 100%);
+        background: -o-linear-gradient(-90deg, #000 0%, #232829 100%);
+        background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, #000), color-stop(1, #232829));
+        background: -webkit-linear-gradient(-90deg, #000 0%, #232829 100%);
+        background: linear-gradient(180deg, #000 0%, #232829 100%);
+        padding: 2em 0 3em;
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff000000,endColorstr=#ff232829,GradientType=0)";
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff000000, endColorstr=#ff232829, GradientType=0);
+    }
+
+    .mainVisual_wrapper {
+
+    }
+
+    .mainVisual_wrapper .container {
+        padding: 0;
+    }
+
+    .mainVisual_wrapper.section {
+        padding: 0;
+    }
+
+    .col_box {
+        background: #FFF;
+        border-radius: 3px;
+        padding: 15px 0 15px;
+        margin-bottom: 1em;
+    }
+
+    .copyright {
+        text-align: center;
+        margin: 0.5em auto;
+        display: block;
+    }
+</style>
+
+
 </body>
 </html>
