@@ -2,33 +2,35 @@ from google.appengine.ext import ndb
 from endpoints_proto_datastore.ndb import EndpointsModel
 
 
+class UserEmailModel(EndpointsModel):
+    email_addr = ndb.StringProperty()
+
+
 class UserModel(EndpointsModel):
     """
     User model class.
-    A user must belong to one or more accounts
     """
     nickname = ndb.StringProperty()
     full_name = ndb.StringProperty()
-    email = ndb.StringProperty()
+    primary_email = ndb.KeyModel('UserEmailModel')
     password = ndb.StringProperty()
-    accounts = ndb.KeyProperty(kind='AccountModel', repeated=True)
+    roles = ndb.KeyProperty('RoleModel', repeated=True)
 
 
 class RoleModel(EndpointsModel):
     """
-    Role model class.  Role is defined by accounts
+    Role model class.
     A user must belong to one or more roles
     """
-    account = ndb.KeyProperty(kind='AccountModel')
-    name = ndb.StringProperty()
     code = ndb.StringProperty()
+    description = ndb.StringProperty()
+    permissions = ndb.KeyProperty('PermissionModel', repeated=True)
 
 
 class PermissionModel(EndpointsModel):
     """
     Permission model class.
-    Permission is given to role.
+    Permission is given to a role.
     """
-    account = ndb.KeyProperty(kind='AccountModel')
-    name = ndb.StringProperty()
     code = ndb.StringProperty()
+    description = ndb.StringProperty()

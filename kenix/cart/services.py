@@ -7,14 +7,14 @@ from .messages import Cart, LineItem
 from .models import CartModel, LineItemModel
 from .api import kenix_cart_api
 
+
 @kenix_cart_api.api_class(resource_name='carts')
 class CartService(remote.Service):
     """
     Cart Service v1
     """
 
-    @CartModel.query_method(query_fields=('limit', 'pageToken'),
-                            path='carts', name='index')
+    @CartModel.query_method(query_fields=('limit', 'pageToken'), path='carts', name='index')
     def index(self, query):
         """
         List of carts

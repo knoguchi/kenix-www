@@ -31,7 +31,7 @@ class UserService(remote.Service):
     Users API v1
     """
 
-    @UserModel.query_method(query_fields=('limit', 'pageToken', 'email'),
+    @UserModel.query_method(query_fields=('limit', 'pageToken'),
                             path='users', name='index')
     def index(self, query):
         """
@@ -73,7 +73,7 @@ class UserService(remote.Service):
         return user
 
     # @UserModel.method(path='users', http_method='POST',
-    #                   name='_auth')
+    # name='_auth')
     # def _auth(self, query):
     #     """
     #     Authenticate user by user id and password, or cookie.
