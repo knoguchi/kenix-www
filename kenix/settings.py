@@ -1,5 +1,5 @@
 import os
-ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../kenix/'))
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
 PROJECT_ROOT = os.path.abspath(os.path.join(ROOT_PATH, '../'))
 
 CURRENT_VERSION_ID = os.environ.get("CURRENT_VERSION_ID", 'local')

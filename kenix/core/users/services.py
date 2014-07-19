@@ -5,7 +5,7 @@ from protorpc import messages
 from protorpc import remote
 from google.appengine.api import users
 
-from models import UserModel
+from .models import UserModel
 from kenix.core.api import kenix_core_api
 
 log = logging.getLogger(__name__)

@@ -10,9 +10,10 @@ class UserModel(EndpointsModel):
     """
     User model class.
     """
+    _message_fields_schema = ('id', 'nickname', 'full_name', 'password')
     nickname = ndb.StringProperty()
     full_name = ndb.StringProperty()
-    primary_email = ndb.KeyModel('UserEmailModel')
+    primary_email = ndb.KeyProperty('UserEmailModel')
     password = ndb.StringProperty()
     roles = ndb.KeyProperty('RoleModel', repeated=True)
 

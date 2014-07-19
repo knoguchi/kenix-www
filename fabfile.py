@@ -7,3 +7,6 @@ def run():
 @task
 def test():
     local('nosetests tests')
+@task
+def collectdeps():
+    local('python manage.py collectdeps -r requirements.txt')
