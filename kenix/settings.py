@@ -1,4 +1,9 @@
-# Django settings for www project.
+import os
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../kenix/'))
+PROJECT_ROOT = os.path.abspath(os.path.join(ROOT_PATH, '../'))
+
+CURRENT_VERSION_ID = os.environ.get("CURRENT_VERSION_ID", 'local')
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -105,9 +110,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'appengine_toolkit',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
 
+APPENGINE_TOOLKIT = {
+    'APP_YAML': os.path.join(ROOT_PATH, 'app.yaml'),
+}

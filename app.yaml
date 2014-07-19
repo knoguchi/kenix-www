@@ -5,16 +5,23 @@ threadsafe: true
 version: 1
 
 env_variables:
-  DJANGO_SETTINGS_MODULE: 'www.settings'
+  DJANGO_SETTINGS_MODULE: 'kenix.settings'
 
 builtins:
 - deferred: on
 - remote_api: on
 
 handlers:
+- url: /_ah/spi/.*
+  script: spi.application
+
 - url: /.*
-  script: www.wsgi.app
+  script: wsgi.application
 
 libraries:
+- name: pycrypto
+  version: latest
+- name: endpoints
+  version: latest
 - name: django
   version: "1.5"
