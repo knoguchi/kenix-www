@@ -1,2 +1,3 @@
 # endpoints_proto_datastore
 # django-appengine-toolkit
+django-jinja

@@ -1,5 +1,5 @@
 import os
-ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../kenix/'))
 PROJECT_ROOT = os.path.abspath(os.path.join(ROOT_PATH, '../'))
 
 CURRENT_VERSION_ID = os.environ.get("CURRENT_VERSION_ID", 'local')
@@ -80,9 +80,8 @@ SECRET_KEY = 'm39h5yj8j$6p^9eacaw)cnhqq(xx_(bko-sove$5hvyy!p(4m7'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django_jinja.loaders.AppLoader',
+    'django_jinja.loaders.FileSystemLoader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,6 +100,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(ROOT_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'appengine_toolkit',
+    'django_jinja',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -118,5 +119,8 @@ INSTALLED_APPS = (
 )
 
 APPENGINE_TOOLKIT = {
-    'APP_YAML': os.path.join(ROOT_PATH, 'app.yaml'),
+    'APP_YAML': os.path.join(PROJECT_ROOT, 'app.yaml'),
 }
+
+DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
+
