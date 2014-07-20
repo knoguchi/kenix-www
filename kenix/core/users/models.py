@@ -1,8 +1,9 @@
+import hashlib
 from google.appengine.ext import ndb
 from endpoints_proto_datastore.ndb import EndpointsModel
 
 
-class UserEmailModel(EndpointsModel):
+class UserEmailIdentityModel(EndpointsModel):
     email_addr = ndb.StringProperty()
 
 
@@ -10,12 +11,19 @@ class UserModel(EndpointsModel):
     """
     User model class.
     """
-    _message_fields_schema = ('id', 'nickname', 'full_name', 'password')
-    nickname = ndb.StringProperty()
-    full_name = ndb.StringProperty()
-    primary_email = ndb.KeyProperty('UserEmailModel')
-    password = ndb.StringProperty()
-    roles = ndb.KeyProperty('RoleModel', repeated=True)
+    nickname = ndb.StringProperty(indexed=False)
+    firstname = ndb.StringProperty(indexed=False)
+    lastname = ndb.StringProperty(indexed=False)
+    password = ndb.StringProperty(indexed=False)
+
+    email_identity = ndb.KeyProperty(kind='UserEmailIdentityModel')
+    roles = ndb.KeyProperty(kind='RoleModel', repeated=True)
+
+    @classmethod
+    def get_by_email(cls, email_addr):
+        email_hash = hashlib.sha1(email_addr).hexdigest()
+        email_identity_key = ndb.Key('UserEmailIdentityModel', email_hash)
+        return cls.query(ancestor=email_identity_key).fetch(1)
 
 
 class RoleModel(EndpointsModel):

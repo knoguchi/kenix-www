@@ -1,28 +1,17 @@
 import logging
-
+import hashlib
 import endpoints
-from protorpc import messages
 from protorpc import remote
 from google.appengine.api import users
-
-from .models import UserModel
+from google.appengine.ext import ndb
+from .models import UserModel, UserEmailIdentityModel
 from kenix.core.api import kenix_core_api
-
+from kenix.core.exceptions import UserEmailIdentityExists, UserExists
+# kenix.core.users relative
+from .messages import AuthRequest, AuthToken, CreateUserRequest
 log = logging.getLogger(__name__)
 
 
-class AuthRequest(messages.Message):
-    email = messages.StringField(1)
-    password = messages.StringField(2)
-
-
-class AuthToken(messages.Message):
-    """
-    Authentication Token
-    """
-    auth_token = messages.StringField(1)
-    user = messages.StringField(2)
-    logout_status = messages.BooleanField(3)
 
 
 @kenix_core_api.api_class(resource_name='users')
@@ -50,14 +39,42 @@ class UserService(remote.Service):
             raise endpoints.NotFoundException('User not found')
         return user
 
-    @UserModel.method(path='users', name='create')
-    def create(self, user):
+    @ndb.transactional(xg=True)
+    @endpoints.method(CreateUserRequest, UserModel.ProtoModel(fields=['id']),
+                      path='users', http_method='POST', name='create', )
+    def create(self, request):
         """
-        Create a user
+        Create a user.
         """
-        # do some validation
+        # user input string is validated by Message schema
+        email_addr = request.email_addr.lower().strip()
+        email_hash = hashlib.sha1(email_addr).hexdigest()
+
+        # Do not allow same ident to be created
+        email_identity = UserEmailIdentityModel.get_by_id(email_hash)
+        if email_identity:
+            raise UserEmailIdentityExists()
+
+        password_hash = hashlib.sha1(request.password).hexdigest()
+        user = UserModel.get_by_email(request.email_addr)
+        if user:
+            raise UserExists()
+        # End of validation
+
+        email_identity = UserEmailIdentityModel(
+            id=email_hash,
+            email_addr=request.email_addr,
+            )
+        email_identity.put()
+        user = UserModel(
+            nickname=request.firstname,
+            firstname=request.firstname,
+            lastname=request.lastname,
+            password=password_hash,
+            email_identity=email_identity.key
+            )
         user.put()
-        return user
+        return user.ToMessage(fields=['id'])
 
     @UserModel.method(path='users/{id}', http_method='PUT', name='update')
     def update(self, user):
