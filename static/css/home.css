@@ -1,0 +1,25 @@
+.header .container .login {
+    float: right;
+    margin-right: 12px;
+}
+
+
+ol, ul {
+    list-style: none outside none;
+}
+
+.header .container .login li {
+    float: left;
+    padding-left: 10px;
+}
+
+label {
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+}
+
+.header .container .login legend {
+    display: none;
+}
