@@ -4,7 +4,7 @@ from endpoints_proto_datastore.ndb import EndpointsModel
 
 
 class UserEmailIdentityModel(EndpointsModel):
-    email_addr = ndb.StringProperty()
+    email = ndb.StringProperty()
 
 
 class UserModel(EndpointsModel):
@@ -20,8 +20,8 @@ class UserModel(EndpointsModel):
     roles = ndb.KeyProperty(kind='RoleModel', repeated=True)
 
     @classmethod
-    def get_by_email(cls, email_addr):
-        email_hash = hashlib.sha1(email_addr).hexdigest()
+    def get_by_email(cls, email):
+        email_hash = hashlib.sha1(email).hexdigest()
         email_identity_key = ndb.Key('UserEmailIdentityModel', email_hash)
         return cls.query(ancestor=email_identity_key).fetch(1)
 

@@ -47,8 +47,8 @@ class UserService(remote.Service):
         Create a user.
         """
         # user input string is validated by Message schema
-        email_addr = request.email_addr.lower().strip()
-        email_hash = hashlib.sha1(email_addr).hexdigest()
+        email = request.email.lower().strip()
+        email_hash = hashlib.sha1(email).hexdigest()
 
         # Do not allow same ident to be created
         email_identity = UserEmailIdentityModel.get_by_id(email_hash)
@@ -56,14 +56,14 @@ class UserService(remote.Service):
             raise UserEmailIdentityExists()
 
         password_hash = hashlib.sha1(request.password).hexdigest()
-        user = UserModel.get_by_email(request.email_addr)
+        user = UserModel.get_by_email(request.email)
         if user:
             raise UserExists()
         # End of validation
 
         email_identity = UserEmailIdentityModel(
             id=email_hash,
-            email_addr=request.email_addr,
+            email=request.email,
             )
         email_identity.put()
         user = UserModel(

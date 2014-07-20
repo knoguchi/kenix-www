@@ -14,7 +14,7 @@ class AuthToken(messages.Message):
     logout_status = messages.BooleanField(3)
 
 class CreateUserRequest(messages.Message):
-    email_addr = messages.StringField(1)
+    email = messages.StringField(1)
     password = messages.StringField(2)
     lastname = messages.StringField(3)
     firstname = messages.StringField(4)
