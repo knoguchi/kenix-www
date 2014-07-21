@@ -189,6 +189,8 @@
 </style>
 
 <script type="text/javascript">
+    var kenix = kenix || {};
+    kenix.signedIn = false;
     function init() {
         var apisToLoad;
         var loadCallback = function () {
@@ -221,27 +223,20 @@
             }
             console.log(resp);
             if (!resp.code) {
-                console.log("User is signed in, call my Endpoint");
+                kenix.signedIn = true;
+                document.querySelector('#signinButton').textContent = resp.email + ' : Sign out';
             }
         });
     }
 
     function auth() {
-        signin(false, userAuthed);
+        if (!kenix.signedIn) {
+            signin(false, userAuthed);
+        } else {
+            kenix.signedIn = false;
+            document.querySelector('#signinButton').textContent = 'Sign in';
+        }
     }
-    ;
-    {#    function _signin() {#}
-    {#        var email = document.getElementById('email').value;#}
-    {#        var password = document.getElementById('password').value;#}
-    {#        var requestData = {};#}
-    {#        requestData.email = email;#}
-    {#        requestData.password = password;#}
-    {#        gapi.client.kenix_core.auth(requestData).execute(function (resp) {#}
-    {#            if (!resp.code) {#}
-    {#                console.log(resp);#}
-    {#            }#}
-    {#        });#}
-    {#    }#}
 
 </script>
 <script src="https://apis.google.com/js/client.js?onload=init"></script>
