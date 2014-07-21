@@ -115,7 +115,7 @@ class UserService(remote.Service):
     @endpoints.method(AuthRequest, AuthToken,
                       path='users/auth', http_method='POST',
                       name='auth')
-    def auth(self, *args, **kw):
+    def auth(self, auth_request):
         """
         Authenticate a user by email and password
         @param args:
@@ -125,14 +125,6 @@ class UserService(remote.Service):
         user = users.get_current_user()
         token = AuthToken()
 
-        if user:
-            self.response.headers['Content-Type'] = 'text/plain'
-            self.response.write('Hello, ' + user.nickname())
-        #else:
-        #    self.redirect(users.create_login_url(self.request.uri))
-
-        log.error(args)
-        log.error(kw)
         token.auth_token = 'aaa'
         token.user = 'kenji'
         return token

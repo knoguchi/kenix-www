@@ -20,38 +20,7 @@
                 </a>
             </div>
             <div class="col-xs-6 login">
-                <form data-jsenabled="check" class="ajax-form" id="login" novalidate="novalidate" name="login"
-                      method="POST" action="/login">
-                    <fieldset>
-                        <legend>Sign In</legend>
-                        <ul id="control_gen_1">
-                            <li>
-                                <label for="session_key-login">Email address</label>
-
-                                <div class="fieldgroup">
-                                    <span id="session_key-login-error" class="error"></span>
-                                    <input type="text" data-ime-mode-disabled="" size="27" tabindex="1" autofocus=""
-                                           id="session_key-login" value="" name="session_key">
-                                </div>
-                            </li>
-                            <li>
-                                <label for="session_password-login">Password</label>
-                                <a tabindex="4" class="forgot-pwd" href="/uas/request-password-reset?trk=signin_fpwd">Forgot
-                                    your password?</a>
-
-                                <div class="fieldgroup">
-                                    <span id="session_password-login-error" class="error"></span>
-                                    <input type="password" size="27" tabindex="2" id="session_password-login" value=""
-                                           name="session_password">
-                                </div>
-                            </li>
-                            <li class="button">
-                                <input type="submit" class="btn-secondary" tabindex="3" id="signin" value="Sign In"
-                                       name="signin">
-                            </li>
-                        </ul>
-                    </fieldset>
-                </form>
+                <a href="#" onclick="auth();" id="signinButton">Sign in!</a>
             </div>
         </div>
     </div>
@@ -219,6 +188,62 @@
     }
 </style>
 
+<script type="text/javascript">
+    function init() {
+        var apisToLoad;
+        var loadCallback = function () {
+            if (--apisToLoad == 0) {
+                signin(true, userAuthed);
+            }
+        };
 
+        apisToLoad = 2; // must match number of calls to gapi.client.load()
+        apiRoot = '//' + window.location.host + '/_ah/api';
+        gapi.client.load('kenix_core', 'v1.0', loadCallback, apiRoot);
+        gapi.client.load('oauth2', 'v2', loadCallback);
+    }
+
+    function signin(mode, authorizeCallback) {
+        gapi.auth.authorize(
+                {
+                    client_id: "{{ CLIENT_ID }}",
+                    scope: ["{{ SCOPES}}"],
+                    immediate: mode
+                },
+                authorizeCallback
+        );
+    }
+
+    function userAuthed() {
+        var request = gapi.client.oauth2.userinfo.get().execute(function (resp) {
+            if (resp.code === 401) {
+
+            }
+            console.log(resp);
+            if (!resp.code) {
+                console.log("User is signed in, call my Endpoint");
+            }
+        });
+    }
+
+    function auth() {
+        signin(false, userAuthed);
+    }
+    ;
+    {#    function _signin() {#}
+    {#        var email = document.getElementById('email').value;#}
+    {#        var password = document.getElementById('password').value;#}
+    {#        var requestData = {};#}
+    {#        requestData.email = email;#}
+    {#        requestData.password = password;#}
+    {#        gapi.client.kenix_core.auth(requestData).execute(function (resp) {#}
+    {#            if (!resp.code) {#}
+    {#                console.log(resp);#}
+    {#            }#}
+    {#        });#}
+    {#    }#}
+
+</script>
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
 </body>
 </html>

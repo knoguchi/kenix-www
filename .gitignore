@@ -54,3 +54,4 @@ docs/_build/
 
 libs/
 .idea/
+client_secrets.json

@@ -121,4 +121,5 @@ APPENGINE_TOOLKIT = {
 }
 
 DEFAULT_JINJA2_TEMPLATE_EXTENSION = '.html'
+CLIENT_SECRETS = os.path.join(PROJECT_ROOT, 'client_secrets.json')
 
